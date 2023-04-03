@@ -1,0 +1,58 @@
+{% load static %}
+{% load socialaccount %}
+
+<header class="bg-gray-100 font-sans w-full  m-0">
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+
+                <div class="image-wrapper">
+                    <a href="/" class="">
+                        <img src="{% static 'assets/logo.svg' %}" alt="Logo" class="w-32 h-[59px] object-cover  ">
+                    </a>
+                </div>
+
+                <div class="hidden sm:flex sm:items-center gap-6">
+                    <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Daily News</a>
+                    <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Top News</a>
+                    <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">About</a>
+                    <!-- <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Partners</a>
+                    <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600">Pricing</a> -->
+                </div>
+
+                <form action="/accounts/google/login/" method="post" class="hidden sm:flex sm:items-center"> {% csrf_token %}
+                    <button type="submit"
+                        class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
+                        <span
+                            class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
+                            <span
+                                class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
+                        </span>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
+                        <span
+                            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white font-semibold">Sign
+                            In</span>
+                    </button>
+                </form>
+                <!-- <div class="hidden sm:flex sm:items-center">
+                    <a href="{% provider_login_url 'google' %}"
+                        class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
+                        <span
+                            class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
+                            <span
+                                class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
+                        </span>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
+                        <span
+                            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white font-semibold">Sign
+                            In</span>
+                    </a>
+                </div> -->
+            </div>
+        </div>
+    </nav>
+</header>
+
+

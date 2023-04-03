@@ -1,0 +1,13 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block tag %} <link rel="stylesheet" href="{% static 'css/index.css' %}">{% endblock tag %}
+
+{% block content %}
+
+<a id="d" href="/accounts/google/login">Go</a>
+
+{{user.email}}
+
+
+{% endblock content %}
