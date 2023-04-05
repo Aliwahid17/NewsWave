@@ -2,8 +2,8 @@
 {% load socialaccount %}
 
 <header class="bg-gray-100 font-sans w-full  m-0">
-    <nav class="bg-white shadow">
-        <div class="container mx-auto px-4">
+    <nav class="bg-white shadow ">
+        <div class="container mx-auto px-4 ">
             <div class="flex items-center justify-between py-4">
 
                 <div class="image-wrapper">
@@ -15,44 +15,100 @@
                 <div class="hidden sm:flex sm:items-center gap-6">
                     <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Daily News</a>
                     <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Top News</a>
-                    <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">About</a>
+                    <!-- <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">About</a> -->
                     <!-- <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Partners</a>
                     <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600">Pricing</a> -->
                 </div>
 
-                <form action="/accounts/google/login/" method="post" class="hidden sm:flex sm:items-center"> {% csrf_token %}
-                    <button type="submit"
-                        class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
-                        <span
-                            class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
-                            <span
-                                class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-                        </span>
-                        <span
-                            class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
-                        <span
-                            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white font-semibold">Sign
-                            In</span>
-                    </button>
-                </form>
-                <!-- <div class="hidden sm:flex sm:items-center">
-                    <a href="{% provider_login_url 'google' %}"
-                        class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
-                        <span
-                            class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
-                            <span
-                                class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-                        </span>
-                        <span
-                            class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
-                        <span
-                            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white font-semibold">Sign
-                            In</span>
-                    </a>
-                </div> -->
+
+
+
+                {% if user.is_authenticated %}
+
+
+
+
+                <div class="hidden lg:flex sm:items-center pl-12 ">
+                    <div class="group relative">
+                        <div class="flex  justify-center items-center w-10 h-10">
+
+                            <img class="rounded-full" width="35" height="35" src="{{user_picture}}" alt="Picture" />
+
+
+                        </div>
+
+                        <div class="absolute z-10 hidden bg-white pt-[26px] group-hover:block w-[185px] -left-[130px] ">
+                            <div
+                                class="top-32 border-t-2 border-t-red-400 bg-slate-50 px-2 pt-2 pb-2 shadow-lg rounded-b-md ">
+                                <a href='/profile'>
+                                    <div
+                                        class="flex items-center cursor-pointer p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100  ">
+                                        <svg class="w-5 h-5 mx-1 text-cyan-500" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8ZM12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z"
+                                                fill="currentColor"></path>
+                                            <path
+                                                d="M6.34315 16.3431C4.84285 17.8434 4 19.8783 4 22H6C6 20.4087 6.63214 18.8826 7.75736 17.7574C8.88258 16.6321 10.4087 16 12 16C13.5913 16 15.1174 16.6321 16.2426 17.7574C17.3679 18.8826 18 20.4087 18 22H20C20 19.8783 19.1571 17.8434 17.6569 16.3431C16.1566 14.8429 14.1217 14 12 14C9.87827 14 7.84344 14.8429 6.34315 16.3431Z"
+                                                fill="currentColor"></path>
+                                        </svg>
+
+                                        <span class="mx-1">
+                                            view profile
+                                        </span>
+                                    </div>
+                                </a>
+                                <hr class="border-gray-200 dark:border-red-400 " />
+                                <form action="/accounts/logout/" method="post"> {% csrf_token %}
+                                    <div
+                                        class="flex items-center cursor-pointer p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100 ">
+
+                                        <button type="submit" class='flex'>
+                                            <svg class="w-5 h-5 mx-1 text-red-500" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M19 21H10C8.89543 21 8 20.1046 8 19V15H10V19H19V5H10V9H8V5C8 3.89543 8.89543 3 10 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21ZM12 16V13H3V11H12V8L17 12L12 16Z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+
+                                            <span class="mx-1">
+                                                Sign Out
+                                            </span>
+                                        </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+
+
+
+            {% else %}
+
+            <form action="/accounts/google/login/" method="post" class="hidden sm:flex sm:items-center">
+                {% csrf_token %}
+                <button type="submit"
+                    class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
+                    <span
+                        class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
+                        <span
+                            class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
+                    </span>
+                    <span
+                        class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
+                    <span
+                        class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white font-semibold">Sign
+                        In</span>
+                </button>
+            </form>
+
+            {% endif %}
+
+
         </div>
+
     </nav>
 </header>
-
-

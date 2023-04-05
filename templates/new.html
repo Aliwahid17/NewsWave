@@ -2,15 +2,13 @@
 {% load static %}
 
 {% block tag %}
-
-
 <script src="{% static 'js/new.js' %}"></script>
-
 {% endblock tag %}
 
 {% block header %}{% endblock header %}
 
 {% block content %}
+
 
 <div class="relative min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover relative items-center"
     style="background-image: url(https://images.unsplash.com/photo-1521133573892-e44906baee46?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80);">
@@ -45,7 +43,7 @@
                                         required="required" name="country" id="country">
                                         <option value="">Seleted Country</option>
 
-                                        {% for name in data.all_countries_names %}
+                                        {% for name in all_countries_names %}
                                         <option value="{{name.name}}" class="text-sm">{{name.flag}} {{name.name}}
                                         </option>
                                         {% endfor %}
@@ -84,7 +82,7 @@
                                     <div
                                         class="flex flex-wrap justify-center items-center gap-2 w-full h-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 p-4  ">
 
-                                        {% for category in data.news_categories %}
+                                        {% for category in news_categories %}
 
                                         <button type="button" class="categories-badge-btn" data-selected="False">
                                             <span
@@ -122,7 +120,7 @@
                                     <div
                                         class="flex flex-wrap justify-center items-center gap-2 w-full h-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 p-4  ">
 
-                                        {% for source in data.news_sources %}
+                                        {% for source in news_sources %}
 
                                         <button type="button" class="sources-badge-btn" data-selected="False">
                                             <span

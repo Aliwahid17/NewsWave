@@ -1,13 +1,239 @@
 {% extends 'components/base.html' %}
 {% load static %}
+{% load socialaccount %}
 
-{% block tag %} <link rel="stylesheet" href="{% static 'css/index.css' %}">{% endblock tag %}
+{% block tag %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock tag %}
+
+{% block header %}
+{% endblock header %}
+
+
+
 
 {% block content %}
 
-<a id="d" href="/accounts/google/login">Go</a>
 
-{{user.email}}
+<div class="carousel ">
+
+    <div class="progress-bar progress-bar--primary hide-on-desktop">
+        <div class="progress-bar__fill"></div>
+    </div>
+
+    <header class="main-post-wrapper  ">
+
+        <nav class="bg-opacity-50 backdrop-filter absolute top-0  left-0 right-0 z-50 text-gray-100">
+
+            <div class="container mx-auto px-4 ">
+
+                <div class="flex items-center justify-between py-4">
+
+                    <div class="image-wrapper">
+                        <a href="/" class="">
+                            <img src="{% static 'assets/logo-white.svg' %}" alt="Logo"
+                                class="w-32 h-[59px] object-cover  ">
+                        </a>
+                    </div>
+
+                    <div class="hidden sm:flex sm:items-center gap-6">
+                        <a href="#" class=" text-lg font-semibold hover:text-red-600 ">Daily News</a>
+                        <a href="#" class=" text-lg font-semibold hover:text-red-600 ">Top News</a>
+                    </div>
+
+                    {% if user.is_authenticated %}
+
+
+
+
+                    <div class="hidden lg:flex sm:items-center pl-12 ">
+                        <div class="group relative">
+                            <div class="flex  justify-center items-center w-10 h-10">
+
+                                <img class="rounded-full" width="35" height="35" src="{{user_picture}}" alt="Picture" />
+
+
+                            </div>
+
+                            <div class="absolute z-10 hidden  group-hover:block w-[185px] -left-[130px] ">
+                                <div
+                                    class="top-32 border-t-2 border-t-red-400 bg-slate-50/10 backdrop-filter background-blur-lg px-2 pt-2 pb-2 shadow-lg rounded-b-md ">
+                                    <a href='/profile'>
+                                        <div
+                                            class="flex items-center cursor-pointer p-3 text-sm  capitalize transition-colors duration-300 transform  hover:bg-gray-100/10 hover:backdrop-filter hover:background-blur-xl  ">
+                                            <svg class="w-5 h-5 mx-1 text-cyan-500" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8ZM12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z"
+                                                    fill="currentColor"></path>
+                                                <path
+                                                    d="M6.34315 16.3431C4.84285 17.8434 4 19.8783 4 22H6C6 20.4087 6.63214 18.8826 7.75736 17.7574C8.88258 16.6321 10.4087 16 12 16C13.5913 16 15.1174 16.6321 16.2426 17.7574C17.3679 18.8826 18 20.4087 18 22H20C20 19.8783 19.1571 17.8434 17.6569 16.3431C16.1566 14.8429 14.1217 14 12 14C9.87827 14 7.84344 14.8429 6.34315 16.3431Z"
+                                                    fill="currentColor"></path>
+                                            </svg>
+
+                                            <span class="mx-1">
+                                                view profile
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <hr class="border-gray-200 dark:border-red-400 " />
+                                    <form action="/accounts/logout/" method="post"> {% csrf_token %}
+                                        <div
+                                            class="flex items-center cursor-pointer p-3 text-sm  capitalize transition-colors duration-300 transform  hover:bg-gray-100/10 hover:backdrop-filter hover:background-blur-xl ">
+
+                                            <button type="submit" class='flex'>
+                                                <svg class="w-5 h-5 mx-1 text-red-500" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M19 21H10C8.89543 21 8 20.1046 8 19V15H10V19H19V5H10V9H8V5C8 3.89543 8.89543 3 10 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21ZM12 16V13H3V11H12V8L17 12L12 16Z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+
+                                                <span class="mx-1">
+                                                    Sign Out
+                                                </span>
+                                            </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {% else %}
+
+                <form action="/accounts/google/login/" method="post" class="hidden sm:flex sm:items-center">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
+                        <span
+                            class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
+                            <span
+                                class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
+                        </span>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
+                        <span
+                            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white font-semibold">Sign
+                            In</span>
+                    </button>
+                </form>
+
+                {% endif %}
+
+
+            </div>
+
+        </nav>
+
+
+
+        <div class="slides">
+            <article class="main-post main-post--active">
+                <div class="main-post__image">
+                    <img src="https://www.formula1.com/content/dam/fom-website/manual/Misc/2019-Races/Monaco2019/McLarenMonaco19.jpg.transform/9col/image.jpg"
+                        alt="New McLaren wind tunnel 'critical' to future performance, says Tech Director Key" />
+                </div>
+                <div class="main-post__content">
+                    <div class="main-post__tag-wrapper">
+                        <span class="main-post__tag">News</span>
+                    </div>
+                    <h1 class="main-post__title">New McLaren wind tunnel 'critical' to future performance, says Tech
+                        Director Key</h1>
+                    <a class="main-post__link" href="#">
+                        <span class="main-post__link-text">find out more</span>
+                        <svg class="main-post__link-icon main-post__link-icon--arrow" width="37" height="12"
+                            viewBox="0 0 37 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 6H36.0001M36.0001 6L31.0001 1M36.0001 6L31.0001 11" stroke="white" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            <article class="main-post main-post--not-active">
+                <div class="main-post__image">
+                    <img src="https://www.formula1.com/content/dam/fom-website/sutton/2019/Hungary/Saturday/1017645792-LAT-20190803-_2ST5188.jpg.transform/9col-retina/image.jpg"
+                        alt="What To Watch For in the 2019 Hungarian Grand Prix" />
+                </div>
+                <div class="main-post__content">
+                    <div class="main-post__tag-wrapper">
+                        <span class="main-post__tag">Video</span>
+                    </div>
+                    <h1 class="main-post__title">What To Watch For in the 2019 Hungarian Grand Prix</h1>
+                    <a class="main-post__link" href="#">
+                        <svg class="main-post__link-icon main-post__link-icon--play-btn" width="30" height="30"
+                            viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="10" cy="10" r="9" stroke="#C20000" stroke-width="2" />
+                            <path d="M14 10L8 6V14L14 10Z" fill="white" />
+                        </svg>
+                        <span class="main-post__link-text">play video</span>
+                    </a>
+                </div>
+            </article>
+            <article class="main-post main-post--not-active">
+                <div class="main-post__image">
+                    <img src="https://www.formula1.com/content/dam/fom-website/manual/Misc/2019-Races/Austria-2019/Top3Austria2019.jpg.transform/9col-retina/image.jpg"
+                        alt="Hamilton wants harder championship fight from Leclerc and
+            Verstappen" />
+                </div>
+                <div class="main-post__content">
+                    <div class="main-post__tag-wrapper">
+                        <span class="main-post__tag">News</span>
+                    </div>
+                    <h1 class="main-post__title">Hamilton wants harder championship fight from Leclerc and Verstappen
+                    </h1>
+                    <a class="main-post__link" href="#">
+                        <span class="main-post__link-text">find out more</span>
+                        <svg class="main-post__link-icon main-post__link-icon--arrow" width="37" height="12"
+                            viewBox="0 0 37 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 6H36.0001M36.0001 6L31.0001 1M36.0001 6L31.0001 11" stroke="white" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </header>
+
+    <div class="posts-wrapper hide-on-mobile">
+        <article class="post post--active">
+            <div class="progress-bar">
+                <div class="progress-bar__fill"></div>
+            </div>
+            <header class="post__header">
+                <span class="post__tag">News</span>
+                <p class="post__published">16 August 2019</p>
+            </header>
+            <h2 class="post__title">New McLaren wind tunnel 'critical' to future performance, says Tech Director Key
+            </h2>
+        </article>
+        <article class="post">
+            <div class="progress-bar">
+                <div class="progress-bar__fill"></div>
+            </div>
+            <header class="post__header">
+                <span class="post__tag">Video</span>
+                <p class="post__published">12 August 2019</p>
+            </header>
+            <h2 class="post__title">What To Watch For in the 2019 Hungarian Grand Prix</h2>
+        </article>
+        <article class="post">
+            <div class="progress-bar">
+                <div class="progress-bar__fill"></div>
+            </div>
+            <header class="post__header">
+                <span class="post__tag">News</span>
+                <p class="post__published">08 August 2019</p>
+            </header>
+            <h2 class="post__title">Hamilton wants harder championship fight from Leclerc and Verstappen
+            </h2>
+        </article>
+    </div>
+</div>
+
+<main>
+    
+</main>
 
 
 {% endblock content %}

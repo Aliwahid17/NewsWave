@@ -8,4 +8,6 @@ from django.views.generic import TemplateView
 
 def home(request):
     # print(request.user)
-    return render(request , 'index.html')
+    data = {'d': request.user}
+    return render(request , 'index.html', context=data)
+    # pass

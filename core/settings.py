@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
 import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'allauth', 
-    'allauth.account', 
-    'allauth.socialaccount', 
-    'allauth.socialaccount.providers.google', 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
     "user",
     "news",
@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'user.context_processors.user_details',
             ],
         },
     },
@@ -144,8 +145,8 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/new'
-SOCIALACCOUNT_EMAIL_VERIFICATION="mandatory"
-SOCIALACCOUNT_EMAIL_REQUIRED=True
+SOCIALACCOUNT_EMAIL_VERIFICATION = "mandatory"
+SOCIALACCOUNT_EMAIL_REQUIRED = True
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -164,11 +165,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'OAUTH_PKCE_ENABLED': True,
     }
 }
-SOCIALACCOUNT_STORE_TOKENS=True
-SOCIALACCOUNT_QUERY_EMAIL=True
+SOCIALACCOUNT_STORE_TOKENS = True
+SOCIALACCOUNT_QUERY_EMAIL = True
 
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-            # 'client_id': '328055192660-qfm1kgujkvt18q9d582lhv2ki1udakdo.apps.googleusercontent.com',
-            # 'secret': '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',
+
