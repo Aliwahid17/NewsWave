@@ -1,8 +1,36 @@
+.triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 20px 20px 0;
+    border-color: transparent #1a202c transparent transparent;
+}
+
+.heart {
+    width: 100px;
+    height: 100px;
+    background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    transition: background-position 1s steps(28);
+    transition-duration: 0s;
+}
+
+.heart.is-active {
+    transition-duration: 1s;
+    background-position: -2800px 0;
+}
+
+.placement {
+    transform: translate(-50%, -50%);
+}
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
+
 
 .carousel {
     min-height: 100vh;
@@ -263,3 +291,4 @@
         grid-column: 3 / 6;
     }
 }
+

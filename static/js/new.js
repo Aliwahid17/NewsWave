@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function formValidate() {
 
-        if (country.value === '' || DOB.value === '' || newsCategories.value.split(',').length < 5 || newsSources.value.split(',').length < 5) {
+        if (country.value === '' || DOB.value === '' || newsCategories.value.split(',').length < 2 || newsSources.value.split(',').length < 5) {
             return false;
         } else {
             return true;

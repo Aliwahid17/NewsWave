@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from user.options import news_categories
 
 # Create your views here.
 
@@ -7,7 +8,5 @@ from django.views.generic import TemplateView
 
 
 def home(request):
-    # print(request.user)
-    data = {'d': request.user}
+    data = {'news_categories': news_categories}
     return render(request , 'index.html', context=data)
-    # pass

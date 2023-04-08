@@ -7,3 +7,7 @@ key.json
 env.py
 db.sqlite3
 pyvenv.cfg
+news_requirement.txt
+sources.json
+c.py
+output.txt

@@ -38,8 +38,8 @@
                     </div>
 
                     <div class="hidden sm:flex sm:items-center gap-6">
-                        <a href="#" class=" text-lg font-semibold hover:text-red-600 ">Daily News</a>
                         <a href="#" class=" text-lg font-semibold hover:text-red-600 ">Top News</a>
+                        <a href="#" class=" text-lg font-semibold hover:text-red-600 ">Other News</a>
                     </div>
 
                     {% if user.is_authenticated %}
@@ -153,6 +153,26 @@
             </article>
             <article class="main-post main-post--not-active">
                 <div class="main-post__image">
+                    <img src="https://www.formula1.com/content/dam/fom-website/manual/Misc/2019-Races/Monaco2019/McLarenMonaco19.jpg.transform/9col/image.jpg"
+                        alt="New McLaren wind tunnel 'critical' to future performance, says Tech Director Key" />
+                </div>
+                <div class="main-post__content">
+                    <div class="main-post__tag-wrapper">
+                        <span class="main-post__tag">News</span>
+                    </div>
+                    <h1 class="main-post__title">New McLaren wind tunnel 'critical' to future performance, says Tech
+                        Director Key</h1>
+                    <a class="main-post__link" href="#">
+                        <span class="main-post__link-text">find out more</span>
+                        <svg class="main-post__link-icon main-post__link-icon--arrow" width="37" height="12"
+                            viewBox="0 0 37 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 6H36.0001M36.0001 6L31.0001 1M36.0001 6L31.0001 11" stroke="white" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            <!-- <article class="main-post main-post--not-active">
+                <div class="main-post__image">
                     <img src="https://www.formula1.com/content/dam/fom-website/sutton/2019/Hungary/Saturday/1017645792-LAT-20190803-_2ST5188.jpg.transform/9col-retina/image.jpg"
                         alt="What To Watch For in the 2019 Hungarian Grand Prix" />
                 </div>
@@ -170,7 +190,7 @@
                         <span class="main-post__link-text">play video</span>
                     </a>
                 </div>
-            </article>
+            </article> -->
             <article class="main-post main-post--not-active">
                 <div class="main-post__image">
                     <img src="https://www.formula1.com/content/dam/fom-website/manual/Misc/2019-Races/Austria-2019/Top3Austria2019.jpg.transform/9col-retina/image.jpg"
@@ -231,8 +251,138 @@
     </div>
 </div>
 
-<main>
-    
+<main class="my-3">
+
+
+    <section class="flex flex-col justify-center max-w-6xl min-h-screen px-4 py-10 mx-auto sm:px-6">
+        <div class="flex flex-wrap items-center justify-between mb-8">
+            <h2 class="mr-10 text-4xl font-bold leading-none md:text-5xl">
+                Latest News
+            </h2>
+        </div>
+        
+        <div class="flex justify-center items-center mb-4">
+            <div
+                class="flex flex-wrap justify-center items-center gap-4 w-3/4 h-full bg-grey-lighter text-grey-darker  p-4 m-3 ">
+                {% for category in news_categories %}
+
+                <button type="button" class="categories-badge-btn" data-selected="False">
+                    <span
+                        class=" text-gray-100 p-2 flex justify-center items-center font-medium rounded-lg categories-badge-span "
+                        style="background: linear-gradient(102.22deg, #04C500 10.82%, rgba(4, 197, 0, 0.81) 97.95%)">{{category}}
+                    </span>
+                </button>
+
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full max-w-full mb-8 sm:w-1/2 px-4 lg:w-1/3 flex flex-col">
+                <img src="https://source.unsplash.com/Lki74Jj7H-U/400x300" alt="Card img"
+                    class="object-cover object-center w-full h-48" />
+                <div class="flex flex-grow">
+                    <div class="triangle"></div>
+                    <div class="flex flex-col justify-between px-4 py-6 bg-white border border-gray-400 text">
+                        <div>
+                            <a href="#"
+                                class="inline-block mb-4 text-xs font-bold capitalize border-b-2 border-blue-600 hover:text-blue-600">Reliable
+                                Schemas</a>
+                            <a href="#"
+                                class="block mb-4 text-2xl font-black leading-tight hover:underline hover:text-blue-600">
+                                What Zombies Can Teach You About Food
+                            </a>
+                            <p class="mb-4">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla delectus corporis
+                                commodi
+                                aperiam, amet cupiditate?
+                            </p>
+                        </div>
+                        <div>
+                            <div class="placement absolute flex items-center mx-24">
+                                <div class="heart flex justify-center items-center"><span
+                                        class="ml-12 text-sm font-semibold heart-num ">5</span></div>
+                                <div class="flex justify-center items-center">
+                                    <img src="{% static 'assets/comment.svg' %}" alt="Logo" class="w-8 h-8  ">
+                                    <span class="mx-2 text-sm font-semibold">5</span>
+                                </div>
+                                <button class="bookmark mx-2">
+                                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                                            <path
+                                            d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </button>
+                                <button  data-value="Hello" id="link" class="mx-2" >
+                                    <img  src="{% static 'assets/share.svg' %}" alt="Logo" class="w-8 h-8" >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full max-w-full mb-8 sm:w-1/2 px-4 lg:w-1/3 flex flex-col">
+                <img src="https://source.unsplash.com/L9_6GOv40_E/400x300" alt="Card img"
+                    class="object-cover object-center w-full h-48" />
+                <div class="flex flex-grow">
+                    <div class="triangle"></div>
+                    <div class="flex flex-col justify-between px-4 py-6 bg-white border border-gray-400">
+                        <div>
+                            <a href="#"
+                                class="inline-block mb-4 text-xs font-bold capitalize border-b-2 border-blue-600 hover:text-blue-600">Client-based
+                                Adoption</a>
+                            <a href="#"
+                                class="block mb-4 text-2xl font-black leading-tight hover:underline hover:text-blue-600">
+                                Old School Art
+                            </a>
+                            <p class="mb-4">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla delectus.
+                            </p>
+                        </div>
+                        <div>
+                            <a href="#"
+                                class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Read
+                                More -></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full max-w-full mb-8 sm:w-1/2 px-4 lg:w-1/3 flex flex-col">
+                <img src="https://source.unsplash.com/7JX0-bfiuxQ/400x300" alt="Card img"
+                    class="object-cover object-center w-full h-48" />
+                <div class="flex flex-grow">
+                    <div class="triangle"></div>
+                    <div class="flex flex-col justify-between px-4 py-6 bg-white border border-gray-400">
+                        <div>
+                            <a href="#"
+                                class="inline-block mb-4 text-xs font-bold capitalize border-b-2 border-blue-600 hover:text-blue-600">Intellectual
+                                Capital</a>
+                            <a href="#"
+                                class="block mb-4 text-2xl font-black leading-tight hover:underline hover:text-blue-600">
+                                5 Things To Do About Rain
+                            </a>
+                            <p class="mb-4">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, neque. Eius, ea
+                                possimus.
+                            </p>
+                        </div>
+                        <div>
+                            <a href="#"
+                                class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Read
+                                More -></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
 </main>
 
 
