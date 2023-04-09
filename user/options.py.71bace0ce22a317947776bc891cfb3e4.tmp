@@ -100,7 +100,5 @@ news_sources_dic = {
 }
 
 news_filter = [
-    'relevancy', 
-    'popularity', 
-    'publishedAt'
+    relevancy, popularity, publishedAt
 ]

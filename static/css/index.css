@@ -148,6 +148,7 @@
     letter-spacing: 1.5px;
     display: inline-flex;
     align-items: center;
+    margin-top: 8px;
 }
 
 .main-post__link-text {

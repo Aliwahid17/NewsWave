@@ -75,6 +75,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'user.context_processors.user_details',
             ],
+            'builtins': [
+                'news.templatetags.custom_tags',  # Add custom tags module here
+            ],
         },
     },
 ]

@@ -79,5 +79,45 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }
 
+    let categoryBtn = document.querySelectorAll(".categories-btn")
+    let categorySpanBtn = document.querySelectorAll(".categories-span-btn")
+    let categoryDefaultBtn = 0
+
+    let filterBtn = document.querySelectorAll(".filter-btn")
+    let filterSpanBtn = document.querySelectorAll(".filter-span-btn")
+    let filterDefaultBtn = 0
+
+
+    for (let i = 0; i < categoryBtn.length; i++) {
+
+        categoryBtn[categoryDefaultBtn].dataset.selected = "true"
+        categorySpanBtn[categoryDefaultBtn].style.background = 'linear-gradient(102.28deg, #FF6767 10.52%, rgba(241, 6, 6, 0.81) 86.96%)'
+
+
+        categoryBtn[i].addEventListener("click", function () {
+            categoryBtn[categoryDefaultBtn].dataset.selected = "false"
+            categorySpanBtn[categoryDefaultBtn].style.background = "linear-gradient(102.22deg, #04C500 10.82%, rgba(4, 197, 0, 0.81) 97.95%)"
+            categoryBtn[i].dataset.selected = "true"
+            categorySpanBtn[i].style.background = 'linear-gradient(102.28deg, #FF6767 10.52%, rgba(241, 6, 6, 0.81) 86.96%)'
+            categoryDefaultBtn = i
+        })
+    }
+
+    for (let i = 0; i < filterBtn.length; i++) {
+
+        filterBtn[filterDefaultBtn].dataset.selected = "true"
+        filterSpanBtn[filterDefaultBtn].style.background = 'linear-gradient(102.28deg, #FF6767 10.52%, rgba(241, 6, 6, 0.81) 86.96%)'
+
+        filterBtn[i].addEventListener("click", function () {
+
+            filterBtn[filterDefaultBtn].dataset.selected = "false"
+            filterSpanBtn[filterDefaultBtn].style.background = "linear-gradient(102.22deg, #04C500 10.82%, rgba(4, 197, 0, 0.81) 97.95%)"
+            filterBtn[i].dataset.selected = "true"
+            filterSpanBtn[i].style.background = 'linear-gradient(102.28deg, #FF6767 10.52%, rgba(241, 6, 6, 0.81) 86.96%)'
+            filterDefaultBtn = i
+
+        })
+    }
+
 
 })  
