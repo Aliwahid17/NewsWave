@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="hidden sm:flex sm:items-center gap-6">
-                    <!-- <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Daily News</a> -->
+                    <a href="/" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Daily News</a>
                     <a href="/trending" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Trending News</a>
                     <!-- <a href="#" class="text-gray-800 text-lg font-semibold hover:text-red-600 ">Other News</a> -->
                     <!-- <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Partners</a>
@@ -40,8 +40,8 @@
                         <div class="absolute z-10 hidden bg-white pt-[26px] group-hover:block w-[185px] -left-[130px] ">
                             <div
                                 class="top-32 border-t-2 border-t-red-400 bg-slate-50 px-2 pt-2 pb-2 shadow-lg rounded-b-md ">
-                                <a href='/profile'>
-                                    <div
+                                <!-- <a href='/profile'> -->
+                                    <a href="/profile"
                                         class="flex items-center cursor-pointer p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  hover:bg-gray-100  ">
                                         <svg class="w-5 h-5 mx-1 text-cyan-500" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -56,8 +56,8 @@
                                         <span class="mx-1">
                                             view profile
                                         </span>
-                                    </div>
-                                </a>
+                                    </a>
+                                <!-- </a> -->
                                 <hr class="border-gray-200 dark:border-red-400 " />
                                 <form action="/accounts/logout/" method="post"> {% csrf_token %}
                                     <div

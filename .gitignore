@@ -11,3 +11,6 @@ news_requirement.txt
 sources.json
 c.py
 output.txt
+news.json
+c.json
+p.json

@@ -4,8 +4,6 @@ from allauth.socialaccount.models import SocialAccount
 from pycountry import countries
 from .options import news_categories , news_sources
 
-# Create your views here.
-
 def new_user(request):
 
     try:

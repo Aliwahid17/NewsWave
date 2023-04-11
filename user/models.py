@@ -13,4 +13,3 @@ class Profile(models.Model):
     class Meta:
         ordering = ["user__user__date_joined" , 'user__user__last_login']
         verbose_name_plural = "Profiles"
-    

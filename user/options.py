@@ -1,6 +1,6 @@
 news_categories = [
     "general",
-    "buisness",
+    "business",
     "technology",
     "sports",
     "entertainment",
