@@ -30,12 +30,22 @@ class NewsArticle(models.Model):
         like = ''
         if self.likes.filter(user__user__email=email):
             like = 'is-active'
-        
+
         return like
     
+
+    
     def userSaved(self,email):
-        s = ''
-        if self.s.filter(user__user__email=email):
-            s = 'saved'
+        bookmark = ''
+
+        if self.saved.filter(user__user__email=email):
+            bookmark = 'saved'
         
-        return s
+        return bookmark
+
+    
+    def userActivity(self,email):
+        like = self.likes.filter(user__user__email=email).count()
+        saved = self.saved.filter(user__user__email=email).count()
+
+        return like , saved

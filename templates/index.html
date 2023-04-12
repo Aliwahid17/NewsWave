@@ -265,7 +265,9 @@
                 </button>
 
                 {% endfor %}
+
             </div>
+
             <div
                 class="flex flex-wrap justify-center items-center gap-4 w-3/4 h-full bg-grey-lighter text-grey-darker  p-4 m-3 relative ">
 
@@ -282,6 +284,7 @@
                 </button>
 
                 {% endfor %}
+
             </div>
 
 
@@ -299,11 +302,11 @@
             <div class="flex flex-wrap -mx-4 hidden {{sort}} ">
 
                 {% if results.articles|length == 0 %}
-                <div class="flex justify-center items-center w-full" >
+                <div class="flex justify-center items-center w-full">
 
-                    
-                    <img src="{% static 'assets/news.jpg' %}" alt="No News" width="400"  height="400"/>
-                    
+
+                    <img src="{% static 'assets/news.jpg' %}" alt="No News" width="400" height="400" />
+
                 </div>
                 {% else %}
 
@@ -328,27 +331,45 @@
                                     {{article.title}}
                                 </a>
                                 <p class="mb-4">
-                                    {{article.content|slice:":200"|safe}}
+                                    {{article.content|slice:":200"}}
                                 </p>
                             </div>
                             <div>
                                 <div class="placement absolute flex items-center mx-24">
                                     <div data-title="{{article.title}}" data-category="{{category}}"
-                                        data-sort="{{sort}}" class="heart flex justify-center items-center {{article.liked}} "><span
-                                            class="ml-12 text-sm font-semibold heart-num ">{{article.likes}}</span></div>
+                                        data-sort="{{sort}}" data-user="{{user.is_authenticated}}"
+                                        class="heart flex justify-center items-center {{article.liked}} "><span
+                                            class="ml-12 text-sm font-semibold heart-num ">{{article.likes}}</span>
+                                    </div>
                                     <a href="#" class="flex justify-center items-center">
                                         <img src="{% static 'assets/comment.svg' %}" alt="Logo" class="w-8 h-8  ">
                                         <span class="mx-2 text-sm font-semibold">5</span>
                                     </a>
+
                                     <button data-title="{{article.title}}" data-category="{{category}}"
-                                        data-sort="{{sort}}" class="bookmark mx-2 {{article.saved}}">
+                                        data-sort="{{sort}}" data-user="{{user.is_authenticated}}"
+                                        class="bookmark mx-2 ">
+                                        {% if article.bookmark == "saved" %}
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FF1616"
+                                            class="w-8 h-8 bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                                        </svg>
+
+                                        {% else %}
+
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class=" w-8 h-8 bi bi-bookmark-plus" viewBox="0 0 16 16">
+                                            fill="currentColor" class=" w-8 h-8 bi bi-bookmark-plus"
+                                            viewBox="0 0 16 16">
                                             <path
                                                 d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
                                             <path
                                                 d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z" />
                                         </svg>
+
+                                        {% endif %}
+
                                     </button>
                                     <button data-value="{{article.url}}" id="link" class="mx-2">
                                         <img src="{% static 'assets/share.svg' %}" alt="Logo" class="w-8 h-8">
@@ -361,10 +382,12 @@
 
 
                 {% endfor %}
+
                 {% endif %}
 
 
             </div>
+
             {% endfor %}
         </div>
 

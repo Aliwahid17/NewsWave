@@ -15,8 +15,7 @@ newsapi = NewsApiClient(api_key=os.environ.get('API_KEY'))
 
 try:
 
-
-    def carousel_news(sources, domains ):
+    def carousel_news(sources, domains):
         all_articles = newsapi.get_everything(
             q="general", sources=sources, domains=domains, from_param=yesterday, to=today, language="en", sort_by="publishedAt", page=1)
 
@@ -27,8 +26,7 @@ try:
 
         return slide_articles
 
-
-    def daily_news(categories, sources, domains , email):
+    def daily_news(categories, sources, domains, email):
 
         content = {}
 
@@ -48,16 +46,31 @@ try:
                             title=l['title'])
                         l['likes'] = like.likesCount()
                         l['liked'] = like.userLiked(email)
-                        l['saved'] = like.userSaved(email)
+
+                        l['bookmark'] = like.userSaved(email)
 
                     except:
-                        l['likes'] = 0
+                        l['likes'] = like.likesCount()
                         l['liked'] = ''
-                        l['saved'] = ''
+                        l['bookmark'] = ''
 
         return content
 
-except :
+    def total_news_result(categories, sources, domains):
+
+        result = {}
+
+        color = ['#F9C80E', '#F94144', '#43AA8B',
+                '#577590', '#FFB7C3', '#A3A948', '#EFC050']
+        index = 0
+
+        for category in categories:
+            result[category] = [newsapi.get_everything(
+                q=category, sources=sources, domains=domains, from_param=yesterday, to=today, language="en", sort_by="publishedAt", page=1)['totalResults'],  color[index]]
+            index += 1
+        return result
+
+except:
     print("API KEY EXHAUSTED")
 
 '''
@@ -72,6 +85,15 @@ except :
         "health" : [data] ,
         "science" : [data] ,
     }
+}
+
+'''
+
+'''
+
+{
+    "general": [total , color],
+    "buisness" : [total , color]
 }
 
 '''
