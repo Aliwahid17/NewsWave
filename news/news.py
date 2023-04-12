@@ -50,7 +50,7 @@ try:
                         l['bookmark'] = like.userSaved(email)
 
                     except:
-                        l['likes'] = like.likesCount()
+                        l['likes'] = 0
                         l['liked'] = ''
                         l['bookmark'] = ''
 

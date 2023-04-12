@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from json import dumps, loads, dump, load
 from user.options import news_categories, news_sources_id, news_sources_url, news_sources_dic, news_filter
 from .news import carousel_news, daily_news , total_news_result
@@ -143,24 +143,24 @@ def trending(request):
             news_id.append(news_sources_dic[source][0])
             news_url.append(news_sources_dic[source][1])
 
+        top_article = NewsArticle.objects.order_by('-likes')[0]
+        second_article = NewsArticle.objects.order_by('-likes')[1]
+        other_articles = NewsArticle.objects.order_by('-likes')[2:]
+
+        results = total_news_result(news_categories, ','.join(
+            news_sources_id), ','.join(news_sources_url)) if email is None else total_news_result(user.categories.split(','), ','.join(news_id), ','.join(news_url))
+
+
+        data = {
+            "top_article": top_article,
+            "second_article": second_article,
+            "other_articles": other_articles,
+            'news_categories': results,
+        }
     except:
-        print("NO USER")
+        return redirect('/')
 
 
-    top_article = NewsArticle.objects.order_by('-likes')[0]
-    second_article = NewsArticle.objects.order_by('-likes')[1]
-    other_articles = NewsArticle.objects.order_by('-likes')[2:]
-
-    results = total_news_result(news_categories, ','.join(
-        news_sources_id), ','.join(news_sources_url)) if email is None else total_news_result(user.categories.split(','), ','.join(news_id), ','.join(news_url))
-
-
-    data = {
-        "top_article": top_article,
-        "second_article": second_article,
-        "other_articles": other_articles,
-        'news_categories': results,
-    }
 
     return render(request, 'trending.html', context=data)
 
