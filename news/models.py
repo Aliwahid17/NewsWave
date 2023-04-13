@@ -15,7 +15,6 @@ class NewsArticle(models.Model):
     published_at = models.DateTimeField()
     content = models.CharField(max_length=300)
     likes = models.ManyToManyField(Profile, related_name="Likes")
-    comments = models.ManyToManyField(Profile,related_name="Comments")
     saved = models.ManyToManyField(Profile,related_name='Saved')
 
 

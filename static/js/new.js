@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     svg[index].style.transform = 'rotate(0deg)';
                     svg[index].style.transition = 'transform 0.2s ease-in-out';
                     btn[index].dataset.selected = "False"
-                    span[index].style.background = '#7FFF00'
+                    span[index].style.background = 'linear-gradient(102.22deg, #04C500 10.82%, rgba(4, 197, 0, 0.81) 97.95%)'
                 }
                 data.value = new_value
             })

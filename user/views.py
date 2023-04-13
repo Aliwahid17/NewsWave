@@ -43,26 +43,44 @@ def user_profile(request):
         user = Profile.objects.filter(user__user__email=request.user.email)
         if user.exists():
 
-            # user_account = Profile.objects.filter
 
-            # print(user[0].user.extra_data['picture'])
+            if request.method == "POST":
+                user.update(categories=request.POST.get('categories'), sources=request.POST.get('sources'))
+
+            # # likes = 0
+            # # saved = 0
+
+            # # for article in NewsArticle.objects.all():
+            # #     likes += article.userActivity(request.user.email)[0] 
+            # #     saved += article.userActivity(request.user.email)[1]
+
+            # likes = sum(article.userActivity(request.user.email)[0] for article in NewsArticle.objects.all())
+            # saved = sum(article.userActivity(request.user.email)[1] for article in NewsArticle.objects.all())
+
+
+            # print(likes,saved)
+
+            bookmark_article = [article for article in NewsArticle.objects.all() if article.userActivity(request.user.email)[1] == 1]
+
+            # print(bookmark_article[0].likesCount())
+
+            user_category = {category.capitalize(): category.capitalize() in user[0].categories.split(",") for category in news_categories}
+            user_sources = {sources: sources in user[0].sources.split(",") for sources in news_sources}
+
+
 
             data = {
                 "user_pic": user[0].user.extra_data['picture'],
                 "user_country": user[0].country,
                 "user_name": user[0].user.extra_data['name'],
-                "news_sources": news_sources,
-                "news_categories": news_categories,
+                "news_sources": user_sources,
+                "news_categories": user_category,
                 "user_categories": user[0].categories,
                 "user_sources": user[0].sources,
-                # "user_likes" : NewsArticle.objects.userActivity(request.user.email),
-                # "user_bookmark" : NewsArticle.objects.userActivity(request.user.email),
+                "user_likes": sum(article.userActivity(request.user.email)[0] for article in NewsArticle.objects.all()),
+                "user_bookmark": sum(article.userActivity(request.user.email)[1] for article in NewsArticle.objects.all()),
+                "user_bookmark_articles" : bookmark_article
             }
-                # "user_likes" : NewsArticle.objects.all().use
-                # "user_likes" : NewsArticle.objects.userActivity(request.user.email),
-                # "user_bookmark" : NewsArticle.objects.userActivity(request.user.email),
-
-            # print(data['user_likes'])
 
         else:
             return redirect('/')

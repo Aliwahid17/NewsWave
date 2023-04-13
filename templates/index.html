@@ -335,16 +335,12 @@
                                 </p>
                             </div>
                             <div>
-                                <div class="placement absolute flex items-center mx-24">
+                                <div class="placement absolute flex items-center mx-16">
                                     <div data-title="{{article.title}}" data-category="{{category}}"
                                         data-sort="{{sort}}" data-user="{{user.is_authenticated}}"
                                         class="heart flex justify-center items-center {{article.liked}} "><span
                                             class="ml-12 text-sm font-semibold heart-num ">{{article.likes}}</span>
                                     </div>
-                                    <a href="#" class="flex justify-center items-center">
-                                        <img src="{% static 'assets/comment.svg' %}" alt="Logo" class="w-8 h-8  ">
-                                        <span class="mx-2 text-sm font-semibold">5</span>
-                                    </a>
 
                                     <button data-title="{{article.title}}" data-category="{{category}}"
                                         data-sort="{{sort}}" data-user="{{user.is_authenticated}}"
@@ -371,7 +367,7 @@
                                         {% endif %}
 
                                     </button>
-                                    <button data-value="{{article.url}}" id="link" class="mx-2">
+                                    <button data-value="{{article.url}}" id="link" class="ml-4">
                                         <img src="{% static 'assets/share.svg' %}" alt="Logo" class="w-8 h-8">
                                     </button>
                                 </div>

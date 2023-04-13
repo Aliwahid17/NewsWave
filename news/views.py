@@ -33,29 +33,29 @@ def home(request):
 
     # Test Code #
 
-    # with open('news.json', 'r') as f:
-    #     daily_new = load(f)
+    with open('news.json', 'r') as f:
+        daily_new = load(f)
 
-    # with open('c.json', 'r') as f:
-    #     slide_articles = load(f)
+    with open('c.json', 'r') as f:
+        slide_articles = load(f)
 
-    # data = {
-    #     'news_categories': news_categories if email is None else user.categories.split(','),
-    #     'slide_articles': slide_articles,
-    #     "news_sort": news_filter,
-    #     'daily_news': daily_new
-    # }
+    data = {
+        'news_categories': news_categories if email is None else user.categories.split(','),
+        'slide_articles': slide_articles,
+        "news_sort": news_filter,
+        'daily_news': daily_new
+    }
 
     # Test Code #
 
     # Production Code #
 
-    data = {
-        'news_categories': news_categories if email is None else user.categories.split(','),
-        'slide_articles': carousel_news(','.join(news_sources_id), ','.join(news_sources_url)) if email is None else carousel_news(','.join(news_id), ','.join(news_url)),
-        "news_sort": news_filter,
-        'daily_news': daily_news(news_categories, ','.join(news_sources_id), ','.join(news_sources_url), email) if email is None else daily_news(user.categories.split(','), ','.join(news_id), ','.join(news_url), email)
-    }
+    # data = {
+    #     'news_categories': news_categories if email is None else user.categories.split(','),
+    #     'slide_articles': carousel_news(','.join(news_sources_id), ','.join(news_sources_url)) if email is None else carousel_news(','.join(news_id), ','.join(news_url)),
+    #     "news_sort": news_filter,
+    #     'daily_news': daily_news(news_categories, ','.join(news_sources_id), ','.join(news_sources_url), email) if email is None else daily_news(user.categories.split(','), ','.join(news_id), ','.join(news_url), email)
+    # }
 
     # with open("test.json" , 'w') as f:
     #     dump(data['daily_news'] , f)
