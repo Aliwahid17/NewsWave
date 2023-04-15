@@ -1,7 +1,7 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render, redirect
 from json import dumps, loads, dump, load
 from user.options import news_categories, news_sources_id, news_sources_url, news_sources_dic, news_filter
-from .news import carousel_news, daily_news , total_news_result
+from .news import carousel_news, daily_news, total_news_result
 from user.models import Profile
 from .models import NewsArticle
 from django.http import JsonResponse, HttpResponseNotAllowed
@@ -21,12 +21,17 @@ def home(request):
 
     try:
         user = Profile.objects.filter(user__user__email=email)[0]
-        news_id = []
-        news_url = []
+        # news_id = []
+        # news_url = []
 
-        for source in user.sources.split(','):
-            news_id.append(news_sources_dic[source][0])
-            news_url.append(news_sources_dic[source][1])
+        # for source in user.sources.split(','):
+        #     news_id.append(news_sources_dic[source][0])
+        #     news_url.append(news_sources_dic[source][1])
+
+        news_id = [news_sources_dic[source][0]
+                   for source in user.sources.split(',')]
+        news_url = [news_sources_dic[source][1]
+                    for source in user.sources.split(',')]
 
     except:
         print("NO USER")
@@ -133,15 +138,20 @@ def trending(request):
 
     email = request.user.email if request.user.is_authenticated else None
 
-
     try:
         user = Profile.objects.filter(user__user__email=email)[0]
-        news_id = []
-        news_url = []
+        # news_id = []
+        # news_url = []
 
-        for source in user.sources.split(','):
-            news_id.append(news_sources_dic[source][0])
-            news_url.append(news_sources_dic[source][1])
+        # for source in user.sources.split(','):
+        #     news_id.append(news_sources_dic[source][0])
+        #     news_url.append(news_sources_dic[source][1])
+
+        news_id = [news_sources_dic[source][0]
+                   for source in user.sources.split(',')]
+
+        news_url = [news_sources_dic[source][1]
+                    for source in user.sources.split(',')]
 
         top_article = NewsArticle.objects.order_by('-likes')[0]
         second_article = NewsArticle.objects.order_by('-likes')[1]
@@ -149,7 +159,6 @@ def trending(request):
 
         results = total_news_result(news_categories, ','.join(
             news_sources_id), ','.join(news_sources_url)) if email is None else total_news_result(user.categories.split(','), ','.join(news_id), ','.join(news_url))
-
 
         data = {
             "top_article": top_article,
@@ -159,8 +168,6 @@ def trending(request):
         }
     except:
         return redirect('/')
-
-
 
     return render(request, 'trending.html', context=data)
 

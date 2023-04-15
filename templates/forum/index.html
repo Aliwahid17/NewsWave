@@ -1,0 +1,123 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block tag %}
+<script>
+    window.dataJson = JSON.parse('{{ data_json|escapejs }}');
+</script>
+<script src="{% static 'js/forum/index.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/forum/index.css' %}">
+{% endblock tag %}
+
+
+{% block content %}
+
+<div class="m-5 text-md font-semibold ">
+    <div class="flex flex-row justify-around items-center">
+
+        <div class="flex justify-center items-center gap-5 my-5 ">
+            {% for category in data.forum_categories %}
+
+            <button type="button" class="categories-btn" data-selected="false">
+                <span
+                    class=" text-gray-100 p-2 flex justify-center items-center font-medium rounded-lg  categories-span-btn "
+                    style="background: linear-gradient(102.22deg, #04C500 10.82%, rgba(4, 197, 0, 0.81) 97.95%)">{{category|capfirst}}
+                </span>
+            </button>
+
+
+            {% endfor %}
+        </div>
+
+        <a href="/forum/create"
+            class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-grey-600 transition duration-300 ease-out border-2 border-green-500 rounded-full shadow-md group">
+            <span
+                class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-green-500 group-hover:translate-x-0 ease">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                    </path>
+                </svg>
+            </span>
+            <span
+                class="absolute flex items-center justify-center w-full h-full text-green-500 transition-all duration-300 transform group-hover:translate-x-full ease">Create
+                Forum</span>
+            <span class="relative invisible">Button Text</span>
+        </a>
+
+    </div>
+</div>
+
+
+{% for key , value in data.all_forum.items %}
+
+<div class="hidden" id="{{key}}">
+
+    {% for data in value %}
+
+    <div class=" my-5  text-gray-800">
+        <div class="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-md bg-gray-100">
+            <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-600">{{data.published_at|date:"F j, Y"}} -
+                    {{data.published_at|hours_since}} ago</span>
+                <div class="flex justify-center items-center gap-2">
+                    {% for tag in data.tags|split:"," %}
+                    <span class="font-bold bg-cyan-500 text-gray-100 rounded px-2 py-1 ">{{tag}}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="mt-3">
+                <a rel="noopener noreferrer" target="_blank" href="/forum/{{data.uuid}}"
+                    class="text-2xl font-bold hover:underline">{{data.title}}</a>
+                <p class="mt-2">{{data.description|slice:":250"}}...</p>
+            </div>
+            <div class="flex items-center justify-between mt-4">
+
+                <div class="flex gap-3 ">
+
+                    <div class="flex flex-col justify-center items-center">
+
+                        <button class="upvote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                            </svg>
+                        </button>
+
+                        <button class="downvote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+
+                    </div>
+
+                    <input class="flex justify-center items-center vote " data-vote="No" type="number" data-title="{{data.title}}"
+                        value="{{data.votes}}" name="vote"  disabled/>
+
+                </div>
+
+                <div>
+                    <div  class="flex items-center">
+                        <img src="{{data.creator_image}}" alt="avatar"
+                            class="object-cover w-10 h-10 mx-4 rounded-full bg-gray-500">
+                        <span class="hover:underline text-gray-600">{{data.creator_name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+
+{% endfor %}
+
+{% endblock content %}

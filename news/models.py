@@ -13,7 +13,7 @@ class NewsArticle(models.Model):
     url = models.URLField(max_length=200)
     url_to_image = models.URLField(max_length=200)
     published_at = models.DateTimeField()
-    content = models.CharField(max_length=300)
+    content = models.CharField(max_length=2000)
     likes = models.ManyToManyField(Profile, related_name="Likes")
     saved = models.ManyToManyField(Profile,related_name='Saved')
 

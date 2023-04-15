@@ -1,0 +1,113 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block tag %}
+<script src="{% static 'js/forum/create.js' %}"></script>
+{% endblock tag %}
+
+{% block header %}{% endblock header %}
+
+{% block content %}
+
+<div class="relative min-h-screen flex items-center justify-center bg-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover relative items-center"
+    style="background-image: url(https://images.unsplash.com/photo-1532423622396-10a3f979251a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80);">
+    <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
+
+    <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg z-10">
+        <div class="grid  gap-8 grid-cols-1">
+            <div class="flex flex-col ">
+
+                <div class="mt-5">
+                    <div class="form">
+
+
+                        <div class="md:space-y-2 mb-3 flex justify-center items-center">
+
+                            <img src="{% static 'assets/logo.svg' %}" alt="Logo"
+                                class="w-32 h-[59px] object-cover mb-2 ">
+
+                        </div>
+
+
+                        <form action="/forum/create/" method="post" onsubmit="return formValidate()" id="user"> {% csrf_token %}
+
+                            <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                                <div class="mb-3 space-y-2 w-full text-xs">
+                                    <label class="font-semibold text-gray-600 py-2">Title <abbr
+                                            title="required">*</abbr></label>
+                                    <input placeholder="Forum Title"
+                                        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+                                        required="required" type="text" name="title" id="title">
+                                </div>
+
+                            </div>
+
+                            <div class="md:flex flex-row md:space-x-4 w-full text-xs  ">
+
+
+                                <div class="mb-3 space-y-2 w-full text-xs">
+                                    <label class="font-semibold text-gray-600 py-2">Categories <abbr title="required">(1
+                                            Min.)*</abbr></label>
+
+
+                                    <div
+                                        class="flex flex-wrap justify-center items-center gap-2 w-full h-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 p-4  ">
+
+                                        {% for category in news_categories %}
+
+                                        <button type="button" class="categories-badge-btn" data-selected="False">
+                                            <span
+                                                class=" text-gray-100 p-2 flex justify-center items-center font-medium rounded-lg categories-badge-span "
+                                                style="background: linear-gradient(102.22deg, #04C500 10.82%, rgba(4, 197, 0, 0.81) 97.95%)">{{category|capfirst}}
+                                                <svg width="24" height="24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="categories-badge-svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12 5a1 1 0 0 1 1 1v12a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1z"
+                                                        fill="#000" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M5 12a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"
+                                                        fill="#000" />
+                                                </svg>
+                                            </span>
+                                        </button>
+
+                                        {% endfor %}
+
+                                        <input type="hidden" name="categories" id="categories" value="" />
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="flex-auto w-full  text-xs space-y-2 my-5">
+                                <label class="font-semibold text-gray-600 py-2">Description <abbr
+                                        title="required">*</abbr></label>
+                                <textarea required name="description" id="description"
+                                    class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4"
+                                    placeholder="Enter your Forum info" spellcheck="true"></textarea>
+                                <p class="text-xs text-gray-400 text-left my-3" id="char">You inserted 0 characters</p>
+                            </div>
+
+                            <p class="text-xs text-red-500 text-right my-3">Required fields are marked with an
+                                asterisk <abbr title="Required field">*</abbr></p>
+
+                        </form>
+
+                        <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
+                            <button onclick="window.history.back()"
+                                class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+                                Cancel </button>
+                            <button id="btn-submit"
+                                class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}

@@ -39,7 +39,7 @@ def new_user(request):
 
 def user_profile(request):
 
-    # try:
+    try:
         user = Profile.objects.filter(user__user__email=request.user.email)
         if user.exists():
 
@@ -146,7 +146,7 @@ def user_profile(request):
     #         #     'news_sources': news_sources
     #         # }
 
-    # except:
-    #     return redirect("/")
+    except:
+        return redirect("/")
 
         return render(request, 'profile.html', context=data)
