@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from json import dumps, loads
 from user.options import news_categories, news_sources_id, news_sources_url, news_sources_dic, news_filter
 from .news import carousel_news, daily_news, total_news_result
@@ -105,7 +105,7 @@ def trending(request):
                     for source in user.sources.split(',')]
 
     except:
-        pass
+        return redirect("/")
 
     top_article = NewsArticle.objects.order_by('-likes')[0]
     second_article = NewsArticle.objects.order_by('-likes')[1]
@@ -121,11 +121,3 @@ def trending(request):
 
     return render(request, 'trending.html', context=data)
 
-
-# 'F9C80E',
-# 'F94144',
-# '43AA8B',
-# '577590',
-# 'FFB7C3',
-# 'A3A948',
-# 'EFC050',
