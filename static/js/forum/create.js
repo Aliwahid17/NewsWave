@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function formValidate() {
 
-        if (newsCategories.value.split(',').length < 1 || description.value === '' || title.value === '' ) {
+        if (newsCategories.value.split(',').length < 1 || description.value === '' || title.value === '') {
             return false;
         } else {
             return true;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     selectBtn(newsCategoriesSpan, newsCategoriesBtn, newsCategoriesSvg, newsCategories)
 
-    description.addEventListener("input" , function(e){
+    description.addEventListener("input", function (e) {
         descriptionCount.innerText = `You inserted ${description.value.length} characters`
     })
 

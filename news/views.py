@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
-from json import dumps, loads, dump, load
+from django.shortcuts import render
+from json import dumps, loads
 from user.options import news_categories, news_sources_id, news_sources_url, news_sources_dic, news_filter
 from .news import carousel_news, daily_news, total_news_result
 from user.models import Profile
 from .models import NewsArticle
-from django.http import JsonResponse, HttpResponseNotAllowed
 
 
 def home(request):
@@ -21,12 +20,6 @@ def home(request):
 
     try:
         user = Profile.objects.filter(user__user__email=email)[0]
-        # news_id = []
-        # news_url = []
-
-        # for source in user.sources.split(','):
-        #     news_id.append(news_sources_dic[source][0])
-        #     news_url.append(news_sources_dic[source][1])
 
         news_id = [news_sources_dic[source][0]
                    for source in user.sources.split(',')]
@@ -36,36 +29,12 @@ def home(request):
     except:
         print("NO USER")
 
-    # Test Code #
-
-    with open('news.json', 'r') as f:
-        daily_new = load(f)
-
-    with open('c.json', 'r') as f:
-        slide_articles = load(f)
-
     data = {
         'news_categories': news_categories if email is None else user.categories.split(','),
-        'slide_articles': slide_articles,
+        'slide_articles': carousel_news(','.join(news_sources_id), ','.join(news_sources_url)) if email is None else carousel_news(','.join(news_id), ','.join(news_url)),
         "news_sort": news_filter,
-        'daily_news': daily_new
+        'daily_news': daily_news(news_categories, ','.join(news_sources_id), ','.join(news_sources_url), email) if email is None else daily_news(user.categories.split(','), ','.join(news_id), ','.join(news_url), email)
     }
-
-    # Test Code #
-
-    # Production Code #
-
-    # data = {
-    #     'news_categories': news_categories if email is None else user.categories.split(','),
-    #     'slide_articles': carousel_news(','.join(news_sources_id), ','.join(news_sources_url)) if email is None else carousel_news(','.join(news_id), ','.join(news_url)),
-    #     "news_sort": news_filter,
-    #     'daily_news': daily_news(news_categories, ','.join(news_sources_id), ','.join(news_sources_url), email) if email is None else daily_news(user.categories.split(','), ','.join(news_id), ','.join(news_url), email)
-    # }
-
-    # with open("test.json" , 'w') as f:
-    #     dump(data['daily_news'] , f)
-
-    # Production Code #
 
     try:
 
@@ -80,17 +49,6 @@ def home(request):
                 news_saved = news_articles[0].saved.filter(
                     user__user__email=email)
 
-                # if news_likes.exists():
-                #     news_articles[0].likes.remove(user)
-                #     print('exist')
-                #     print('if', news_articles[0].likesCount())
-                #     print('if', news_articles[0].userLiked(email))
-                # else:
-                #     news_articles[0].likes.add(user)
-                #     print('else', news_articles[0].likesCount())
-                #     print('else', news_articles[0].userLiked(email))
-
-                print(btnType)
 
                 if btnType == "Like":
                     news_articles[0].likes.remove(user) if news_likes.exists(
@@ -122,8 +80,6 @@ def home(request):
                 if btnType == "Bookmark":
                     news_articles[0].saved.add(user)
 
-            # print(news_articles[0].likes)
-            print(news_articles[0].saved)
 
     except:
 
@@ -140,12 +96,7 @@ def trending(request):
 
     try:
         user = Profile.objects.filter(user__user__email=email)[0]
-        # news_id = []
-        # news_url = []
 
-        # for source in user.sources.split(','):
-        #     news_id.append(news_sources_dic[source][0])
-        #     news_url.append(news_sources_dic[source][1])
 
         news_id = [news_sources_dic[source][0]
                    for source in user.sources.split(',')]
@@ -154,9 +105,8 @@ def trending(request):
                     for source in user.sources.split(',')]
 
     except:
-        # return redirect('/')
         pass
-    
+
     top_article = NewsArticle.objects.order_by('-likes')[0]
     second_article = NewsArticle.objects.order_by('-likes')[1]
     other_articles = NewsArticle.objects.order_by('-likes')[2:]

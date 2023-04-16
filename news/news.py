@@ -3,7 +3,7 @@ import os
 import env
 from newsapi import NewsApiClient
 from datetime import datetime, timedelta
-from user.options import news_categories, news_filter
+from user.options import news_filter
 from .models import NewsArticle
 
 now = datetime.now()
@@ -61,7 +61,7 @@ try:
         result = {}
 
         color = ['#F9C80E', '#F94144', '#43AA8B',
-                '#577590', '#FFB7C3', '#A3A948', '#EFC050']
+                 '#577590', '#FFB7C3', '#A3A948', '#EFC050']
         index = 0
 
         for category in categories:
@@ -72,37 +72,3 @@ try:
 
 except:
     print("API KEY EXHAUSTED")
-
-'''
-
-{
-    "general" : {
-        "general" : [data] ,
-        "buisness" : [data] ,
-        "technology" : [data] ,
-        "sports" : [data] ,
-        "entertainment" : [data] ,
-        "health" : [data] ,
-        "science" : [data] ,
-    }
-}
-
-'''
-
-'''
-
-{
-    "general": [total , color],
-    "buisness" : [total , color]
-}
-
-'''
-
-# all_articles = newsapi.get_everything(q='bitcoin',
-#                                       sources='bbc-news,the-verge',
-#                                       domains='bbc.co.uk,techcrunch.com',
-#                                       from_param='2023-03-30',
-#                                       to='2023-03-12',
-#                                       language='en',
-#                                       sort_by='',
-#                                       page=2)

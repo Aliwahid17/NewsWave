@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Community_Forums , Forums_Votes , Comments
+from .models import Community_Forums, Forums_Votes, Comments
 
 # Register your models here.
 
@@ -12,8 +12,9 @@ class CommunityForumsAdmin(admin.ModelAdmin):
 
 @admin.register(Forums_Votes)
 class Vote_CategoryAdmin(admin.ModelAdmin):
-    list_display = ["user","forum","vote"]
+    list_display = ["user", "forum", "vote"]
+
 
 @admin.register(Comments)
 class CommentsAdmin(admin.ModelAdmin):
-    list_display = ["post","user","comment","published_at"]
+    list_display = ["post", "user", "comment", "published_at"]

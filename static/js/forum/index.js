@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 downvote[index].firstElementChild.style.fill = "black"
             }
 
-            // console.log("UP",vote[index].value , vote[index])
             dataAjax(vote[index].value , vote[index].dataset.title , vote[index].dataset.vote)
             
         })
@@ -112,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             dataAjax(vote[index].value, vote[index].dataset.title, vote[index].dataset.vote)
-            // console.log("DOWN",vote[index].value , vote[index])
 
         })
         

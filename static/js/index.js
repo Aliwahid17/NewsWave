@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (hearts[i].dataset.user === "True") {
                 dataAjax(hearts[i].dataset.category, hearts[i].dataset.sort, hearts[i].dataset.title, "Like")
             }
-            // console.log(hearts[i].dataset.user, typeof hearts[i].dataset.user)
         });
     }
 

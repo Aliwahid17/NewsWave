@@ -1,7 +1,6 @@
 from django.db import models
 from user.models import Profile
-# from allauth.socialaccount.models import SocialAccount
-# Create your models here.
+
 
 
 class NewsArticle(models.Model):
