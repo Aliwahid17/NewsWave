@@ -26,14 +26,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function dataAjax(votes) {
+    function dataAjax(votes , title , voteCategory) {
         let xhr = new XMLHttpRequest()
         let csrftoken = getCookie('csrftoken')
         xhr.open("POST", '/forum/', true)
         xhr.setRequestHeader("Content-Type", "application/json")
         xhr.setRequestHeader('X-CSRFToken', csrftoken)
         let data = JSON.stringify({
-            votes : votes
+            votes : votes,
+            title: title,
+            voteCategory : voteCategory
         })
 
         xhr.send(data)
@@ -45,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    document.getElementById(window.dataJson[categoryDefaultBtn]).classList.remove('hidden')
+    document.getElementById(window.dataJson[categoryDefaultBtn].replace(/^\w/, c => c.toUpperCase())).classList.remove('hidden')
 
 
     for (let i = 0; i < categoryBtn.length; i++) {
@@ -57,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function () {
         categoryBtn[i].addEventListener("click", function () {
             categoryBtn[categoryDefaultBtn].dataset.selected = "false"
             categorySpanBtn[categoryDefaultBtn].style.background = "linear-gradient(102.22deg, #04C500 10.82%, rgba(4, 197, 0, 0.81) 97.95%)"
-            document.getElementById(window.dataJson[categoryDefaultBtn]).classList.add('hidden')
-            document.getElementById(window.dataJson[i]).classList.remove('hidden')
+            document.getElementById(window.dataJson[categoryDefaultBtn].replace(/^\w/, c => c.toUpperCase())).classList.add('hidden')
+            document.getElementById(window.dataJson[i].replace(/^\w/, c => c.toUpperCase())).classList.remove('hidden')
             categoryBtn[i].dataset.selected = "true"
             categorySpanBtn[i].style.background = 'linear-gradient(102.28deg, #FF6767 10.52%, rgba(241, 6, 6, 0.81) 86.96%)'
             categoryDefaultBtn = i
@@ -72,19 +74,20 @@ document.addEventListener('DOMContentLoaded', function () {
             if (vote[index].dataset.vote === "Up"){
                 vote[index].value = parseInt(vote[index].value) - 1
                 vote[index].dataset.vote = "No"
-                upvote[index].firstElementChild.style.color = "black"
-            } else if (vote[index].dataset.vote === "No"){
+                upvote[index].firstElementChild.style.fill = "black"
+            } else if (vote[index].dataset.vote === "No" || vote[index].dataset.vote === "" ){
                 vote[index].value = parseInt(vote[index].value) + 1
                 vote[index].dataset.vote = "Up"
-                upvote[index].firstElementChild.style.color = "green"
+                upvote[index].firstElementChild.style.fill = "green"
             } else{
                 vote[index].value = parseInt(vote[index].value) + 2
                 vote[index].dataset.vote = "Up"
-                upvote[index].firstElementChild.style.color = "green"
-                downvote[index].firstElementChild.style.color = "black"
+                upvote[index].firstElementChild.style.fill = "green"
+                downvote[index].firstElementChild.style.fill = "black"
             }
 
-            console.log("UP",vote[index].value , vote[index])
+            // console.log("UP",vote[index].value , vote[index])
+            dataAjax(vote[index].value , vote[index].dataset.title , vote[index].dataset.vote)
             
         })
         
@@ -96,19 +99,21 @@ document.addEventListener('DOMContentLoaded', function () {
             if (vote[index].dataset.vote === "Down"){
                 vote[index].value = parseInt(vote[index].value) + 1
                 vote[index].dataset.vote = "No"
-                downvote[index].firstElementChild.style.color = "black"
-            } else if (vote[index].dataset.vote === "No"){
+                downvote[index].firstElementChild.style.fill = "black"
+            } else if (vote[index].dataset.vote === "No" || vote[index].dataset.vote === ""){
                 vote[index].value = parseInt(vote[index].value) - 1
                 vote[index].dataset.vote = "Down"
-                downvote[index].firstElementChild.style.color = "red"
+                downvote[index].firstElementChild.style.fill = "red"
             } else{
                 vote[index].value = parseInt(vote[index].value) - 2
                 vote[index].dataset.vote = "Down"
-                downvote[index].firstElementChild.style.color = "red"
-                upvote[index].firstElementChild.style.color = "black"
+                downvote[index].firstElementChild.style.fill = "red"
+                upvote[index].firstElementChild.style.fill = "black"
             }
 
-            console.log("DOWN",vote[index].value , vote[index])
+            dataAjax(vote[index].value, vote[index].dataset.title, vote[index].dataset.vote)
+            // console.log("DOWN",vote[index].value , vote[index])
+
         })
         
     }

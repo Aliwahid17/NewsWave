@@ -54,7 +54,17 @@
 
 <div class="hidden" id="{{key}}">
 
+    {% if value|length == 0 %}
+    <div class="flex justify-center items-center w-full">
+
+
+        <img src="{% static 'assets/news.jpg' %}" alt="No News" width="400" height="400" />
+
+    </div>
+    {% else %}
     {% for data in value %}
+
+
 
     <div class=" my-5  text-gray-800">
         <div class="container max-w-4xl px-10 py-6 mx-auto rounded-lg shadow-md bg-gray-100">
@@ -78,6 +88,19 @@
 
                     <div class="flex flex-col justify-center items-center">
 
+                        {% if data.meter == "Up" %}
+
+
+                        <button class="upvote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green"
+                                class="bi bi-chevron-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                            </svg>
+                        </button>
+
+                        {% else %}
+
                         <button class="upvote">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-up" viewBox="0 0 16 16">
@@ -85,6 +108,21 @@
                                     d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
                             </svg>
                         </button>
+
+                        {% endif %}
+
+                        {% if data.meter == "Down" %}
+
+
+                        <button class="downvote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+
+                        {% else %}
 
                         <button class="downvote">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -94,15 +132,17 @@
                             </svg>
                         </button>
 
+                        {% endif %}
+
                     </div>
 
-                    <input class="flex justify-center items-center vote " data-vote="No" type="number" data-title="{{data.title}}"
-                        value="{{data.votes}}" name="vote"  disabled/>
+                    <input class="flex justify-center items-center vote " data-vote="{{data.meter}}" type="number"
+                        data-title="{{data.title}}" value="{{data.votes}}" name="vote" disabled />
 
                 </div>
 
                 <div>
-                    <div  class="flex items-center">
+                    <div class="flex items-center">
                         <img src="{{data.creator_image}}" alt="avatar"
                             class="object-cover w-10 h-10 mx-4 rounded-full bg-gray-500">
                         <span class="hover:underline text-gray-600">{{data.creator_name}}</span>
@@ -113,6 +153,7 @@
     </div>
 
     {% endfor %}
+    {% endif %}
 
 </div>
 

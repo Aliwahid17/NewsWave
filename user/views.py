@@ -4,6 +4,7 @@ from allauth.socialaccount.models import SocialAccount
 from pycountry import countries
 from .options import news_categories, news_sources
 from news.models import NewsArticle
+from forum.models import Community_Forums
 
 
 def new_user(request):
@@ -79,7 +80,8 @@ def user_profile(request):
                 "user_sources": user[0].sources,
                 "user_likes": sum(article.userActivity(request.user.email)[0] for article in NewsArticle.objects.all()),
                 "user_bookmark": sum(article.userActivity(request.user.email)[1] for article in NewsArticle.objects.all()),
-                "user_bookmark_articles" : bookmark_article
+                "user_bookmark_articles" : bookmark_article,
+                "user_forums" : Community_Forums.objects.filter(creator_email=request.user.email).count()
             }
 
         else:
@@ -148,5 +150,12 @@ def user_profile(request):
 
     except:
         return redirect("/")
+    
+    # print(Community_Forums.creator(request.user.email))
 
-        return render(request, 'profile.html', context=data)
+    # for i in Community_Forums.objects.all():
+    #     # print(i)
+    #     print(i if i.creator_email == request.user.email else "no")
+
+
+    return render(request, 'profile.html', context=data)

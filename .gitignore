@@ -16,3 +16,5 @@ c.json
 p.json
 test.json
 migrations
+.Python
+bin

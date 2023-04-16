@@ -16,12 +16,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('DOB', models.DateField()),
                 ('country', models.CharField(max_length=50)),
                 ('categories', models.JSONField(default=list)),
                 ('sources', models.JSONField(default=list)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='socialaccount.socialaccount')),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='socialaccount.socialaccount')),
             ],
             options={
                 'verbose_name_plural': 'Profiles',
