@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from user.options import  news_categories
+from user.options import news_categories
 from user.models import Profile
 from .models import Community_Forums, Forums_Votes, Comments
 from json import dumps, loads
@@ -44,31 +44,36 @@ def forum_home(request):
     except:
         print("NO USER")
 
-    forum_tags = [[x, x.tags]
-                  for x in Community_Forums.objects.order_by('-votes')]
+    try:
 
-    forum_categories = news_categories if email is None else user.categories.split(
-        ",")
+        forum_tags = [[x, x.tags]
+                      for x in Community_Forums.objects.order_by('-votes')]
 
-    all_forum = {category.title(): [tags[0] for tags in forum_tags if category.title(
-    ) in tags[1]] for category in forum_categories}
+        forum_categories = news_categories if email is None else user.categories.split(
+            ",")
 
-    for key, value in all_forum.items():
-        try:
-            value[0].meter = Forums_Votes.objects.get(
-                user=user, forum=value[0]).vote
-        except:
-            if len(value) != 0:
-                value[0].meter = "No"
+        all_forum = {category.title(): [tags[0] for tags in forum_tags if category.title(
+        ) in tags[1]] for category in forum_categories}
 
-    data = {
-        "forum_categories": news_categories if email is None else user.categories.split(','),
-        "all_forum": all_forum
-    }
+        for key, value in all_forum.items():
+            try:
+                value[0].meter = Forums_Votes.objects.get(
+                    user=user, forum=value[0]).vote
+            except:
+                if len(value) != 0:
+                    value[0].meter = "No"
 
-    data_json = dumps(forum_categories)
+        data = {
+            "forum_categories": news_categories if email is None else user.categories.split(','),
+            "all_forum": all_forum
+        }
 
-    return render(request, "forum/index.html", context={"data": data, "data_json": data_json})
+        data_json = dumps(forum_categories)
+
+        return render(request, "forum/index.html", context={"data": data, "data_json": data_json})
+
+    except:
+        return redirect("/")
 
 
 def create_forum(request):
