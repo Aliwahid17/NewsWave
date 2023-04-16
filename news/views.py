@@ -103,21 +103,21 @@ def trending(request):
 
         news_url = [news_sources_dic[source][1]
                     for source in user.sources.split(',')]
+        top_article = NewsArticle.objects.order_by('-likes')[0]
+        second_article = NewsArticle.objects.order_by('-likes')[1]
+        other_articles = NewsArticle.objects.order_by('-likes')[2:]
+        results = total_news_result(news_categories, ','.join(
+            news_sources_id), ','.join(news_sources_url)) if email is None else total_news_result(user.categories.split(','), ','.join(news_id), ','.join(news_url))
 
+        data = {
+            "top_article": top_article,
+            "second_article": second_article,
+            "other_articles": other_articles,
+            'news_categories': results,
+        }
+
+        return render(request, 'trending.html', context=data)
     except:
         return redirect("/")
 
-    top_article = NewsArticle.objects.order_by('-likes')[0]
-    second_article = NewsArticle.objects.order_by('-likes')[1]
-    other_articles = NewsArticle.objects.order_by('-likes')[2:]
-    results = total_news_result(news_categories, ','.join(
-        news_sources_id), ','.join(news_sources_url)) if email is None else total_news_result(user.categories.split(','), ','.join(news_id), ','.join(news_url))
-    data = {
-        "top_article": top_article,
-        "second_article": second_article,
-        "other_articles": other_articles,
-        'news_categories': results,
-    }
-
-    return render(request, 'trending.html', context=data)
 
