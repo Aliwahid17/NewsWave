@@ -111,7 +111,8 @@ def forum_view(request, uuid):
         user = Profile.objects.filter(user__user__email=request.user.email)[0]
         forum = Community_Forums.objects.get(uuid=uuid)
         total_comments_count = Comments.objects.count()
-        total_comments = Comments.objects.order_by("-published_at")
+        total_comments = Comments.objects.filter(
+            post=forum).order_by("-published_at")
 
         if request.method == "POST":
             Comments(
